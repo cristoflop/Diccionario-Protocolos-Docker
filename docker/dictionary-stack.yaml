@@ -8,14 +8,14 @@ services:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=pass
-      - MYSQL_DATABASE=forum
+      - MYSQL_DATABASE=dictionary
 
   mongodb:
     image: mongo:5.0.3
     ports:
       - 27017:27017
     environment:
-      - MONGO_INITDB_DATABASE=forum
+      - MONGO_INITDB_DATABASE=dictionary
 
   rabbitmq:
     image: rabbitmq:3.9.8
