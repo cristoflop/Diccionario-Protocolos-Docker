@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+
+  mysqldb:
+    image: mysql:8
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass
+      - MYSQL_DATABASE=forum
+
+  mongodb:
+    image: mongo:5.0.3
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=forum
+
+  rabbitmq:
+    image: rabbitmq:3.9.8
+    ports:
+      - 15673:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
