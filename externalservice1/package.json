@@ -1,0 +1,16 @@
+{
+  "name": "externalservice1",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node src/server",
+    "dev": "nodemon src/server"
+  },
+  "author": "cristofer-juan",
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.6.6",
+    "grpc": "^1.24.11",
+    "nodemon": "^2.0.14"
+  }
+}

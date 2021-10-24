@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package es.urjc.cloudapps.worker.grpc;
+
+message ToUpperCaseWordRequest {
+  string word = 1;
+}
+message ToUpperCaseWordResponse {
+  string word = 1;
+}
+
+service WordService {
+  rpc toUpperCaseWord(ToUpperCaseWordRequest) returns (ToUpperCaseWordResponse);
+}
