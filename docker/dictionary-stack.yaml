@@ -18,7 +18,7 @@ services:
       - MONGO_INITDB_DATABASE=dictionary
 
   rabbitmq:
-    image: rabbitmq:3.9.8
+    image: rabbitmq:3.8.14-management-alpine
     ports:
       - 15673:15672
     environment:
