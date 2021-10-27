@@ -15,7 +15,7 @@ public class TaskProgressProducer {
     private final RabbitTemplate rt;
     private final ObjectMapper om;
 
-    private final String topic = "taskProgress";
+    private final String topic = "tasksProgress";
 
     public TaskProgressProducer(RabbitTemplate rt, ObjectMapper om) {
         this.rt = rt;
