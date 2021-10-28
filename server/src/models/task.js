@@ -8,7 +8,9 @@ class Task extends Model {
 
 Task.init({
     _id: {
-        type: DataTypes.BIGINT
+        type: DataTypes.BIGINT,
+        autoIncrement: true,
+        primaryKey: true
     },
     progress: {
         type: DataTypes.INTEGER
@@ -25,6 +27,6 @@ Task.init({
     modelName: 'task'
 });
 
-await sequelize.sync();
+sequelize.sync();
 
 module.exports = Task;
