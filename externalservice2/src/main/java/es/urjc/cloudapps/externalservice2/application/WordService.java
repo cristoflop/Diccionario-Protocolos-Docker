@@ -30,7 +30,7 @@ public class WordService {
     private WordDto toWordDto(Word word) {
         return new WordDto(
                 word.getSpanish(),
-                word.getEnglish()
+                word.getEnglish().toUpperCase()
         );
     }
 
