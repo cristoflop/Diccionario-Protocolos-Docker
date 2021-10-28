@@ -22,3 +22,12 @@ node build.js
 ```
 node exec.js
 ```
+
+---
+
+#### Puertos donde se levantan los servicios
+
+    - Server - 3000
+    - Worker - 8080
+    - ExternalService1 - 3001
+    - ExternalService2 - 8081
