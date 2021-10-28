@@ -58,21 +58,24 @@ async function deleteById(req, res) {
 
 async function updateById(task) {
     const id = task.id;
+    const result = task.completed ? task.result : null;
 
     const savedTask = await Task.findOne({where: {_id: id}});
     if (savedTask == null) {
         return;
     }
 
-    await Task.update(
+    const updatedTask = await Task.update(
         {
             progress: task.progress,
             completed: task.completed,
-            result: task.result
+            result: result
         },
         {
             where: {_id: id}
         });
+
+    // notificarWebsocket
 }
 
 module.exports = {
