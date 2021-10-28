@@ -13,6 +13,6 @@ public class TaskProgressConsumer {
 
     @RabbitListener(queues = {"tasksProgress"}, ackMode = "AUTO")
     public void taskProgressConsumer(TaskProgressResponse response) {
-        log.info("Recibida actualizacion de progresso: \n {}", response);
+        log.info("Recibida actualizacion de progresso: {}", response);
     }
 }
