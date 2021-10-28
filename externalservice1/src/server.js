@@ -9,7 +9,7 @@ const PORT = process.env.PORT || "3001";
 
 const server = new grpc.Server();
 
-server.addService(wordService.service, wordServiceImpl.toUpperCaseWord);
+server.addService(wordService.service, {toUpperCaseWord: wordServiceImpl.toUpperCaseWord});
 
 server.bind(`${HOST}:${PORT}`, grpc.ServerCredentials.createInsecure());
 
