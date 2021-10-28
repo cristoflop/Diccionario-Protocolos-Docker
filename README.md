@@ -27,7 +27,15 @@ node exec.js
 
 #### Puertos donde se levantan los servicios
 
-    - Server - 3000
-    - Worker - 8080
-    - ExternalService1 - 3001
-    - ExternalService2 - 8081
+```
+- Server - 3000
+- Worker - 8080
+- ExternalService1 - 3001
+- ExternalService2 - 8081
+```
+
+```
+- MysqlDb - 3306
+- MongoDb - 27017
+- RabbitMQ - 15673 (consola), 5674 (servidor)
+```
