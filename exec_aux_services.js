@@ -12,4 +12,5 @@ function exec(serviceName, command) {
     });
 }
 
+exec('DowmBrokerAndDbs', 'docker-compose -f docker/dictionary-stack.yaml down');
 exec('BrokerAndDbs', 'docker-compose -f docker/dictionary-stack.yaml up -d --build');
