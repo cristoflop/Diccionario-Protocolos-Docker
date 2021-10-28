@@ -1,5 +1,7 @@
 package es.urjc.cloudapps.worker.amqp;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import es.urjc.cloudapps.worker.clients.ExternalService1Client;
 import es.urjc.cloudapps.worker.clients.ExternalService2Client;
 import es.urjc.cloudapps.worker.dto.NewTaskRequest;
@@ -17,16 +19,22 @@ public class NewTaskConsumer {
 
     private final TaskProgressProducer producer;
 
+    private final ObjectMapper om;
+
     public NewTaskConsumer(ExternalService1Client external1Client,
                            ExternalService2Client external2Client,
-                           TaskProgressProducer producer) {
+                           TaskProgressProducer producer,
+                           ObjectMapper om) {
         this.external1Client = external1Client;
         this.external2Client = external2Client;
         this.producer = producer;
+        this.om = om;
     }
 
     @RabbitListener(queues = {"createTask"}, ackMode = "AUTO")
-    public void newTaskConsumer(NewTaskRequest request) {
+    public void newTaskConsumer(String msg) throws JsonProcessingException {
+
+        NewTaskRequest request = om.readValue(msg, NewTaskRequest.class);
 
         Long id = request.getId();
         String word = request.getText();

@@ -1,7 +1,7 @@
 package es.urjc.cloudapps.worker.experimental;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import es.urjc.cloudapps.worker.amqp.NewTaskConsumer;
-import es.urjc.cloudapps.worker.dto.NewTaskRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,11 @@ public class NewTaskController {
     private NewTaskConsumer consumer;
 
     @GetMapping("/{id}/{word}")
-    public void testService(@PathVariable Long id, @PathVariable String word) {
-        NewTaskRequest request = new NewTaskRequest(id, word);
-        log.info("New test request: {}", request);
-        consumer.newTaskConsumer(request);
+    public void testService(@PathVariable Long id, @PathVariable String word) throws JsonProcessingException {
+        String msg = "{\"id\": " + id + ", \"text\": \"" + word + "\"}";
+        // NewTaskRequest request = new NewTaskRequest(id, word);
+        log.info("New test request: {}", msg);
+        consumer.newTaskConsumer(msg);
     }
 
 }
