@@ -8,14 +8,15 @@ const queueName = amqpConfig.queues.tasksProgress;
 
 function consume() {
     amqp.connect(CONN_URL, async function (err, connection) {
-        const chanel = await connection.createChannel();
+        const channel = await connection.createChannel();
 
-        chanel.assertQueue(queueName);
+        channel.assertQueue(queueName, {durable: false});
 
-        chanel.consume(queueName, (buffer) => {
+        channel.consume(queueName, (buffer) => {
+            console.log(`Nuevo mensaje recibido: ${buffer.content}`);
             const content = JSON.parse(buffer.content.toString());
             console.log(content);
-            chanel.ack(buffer);
+            channel.ack(buffer);
         });
     });
 }

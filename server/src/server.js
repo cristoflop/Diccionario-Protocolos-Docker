@@ -1,7 +1,6 @@
 "use strict"
 
 const express = require('express');
-const config = require("./config");
 const path = require("path");
 const app = express();
 
@@ -21,9 +20,9 @@ app.use("/api", taskRouter);
 const consumer = require("./amqp/taskProgressConsumer.js");
 consumer.consume();
 
-app.listen(config.port, err => {
+app.listen(3000, err => {
     if (err)
         console.error(`No se ha podido iniciar el servidor: ${err.message}`);
     else
-        console.log(`Servidor arrancado en el puerto ${config.port}`);
+        console.log(`Servidor arrancado en el puerto 3000`);
 });

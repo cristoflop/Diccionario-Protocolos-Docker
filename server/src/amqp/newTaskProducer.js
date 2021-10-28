@@ -9,12 +9,12 @@ const queueName = amqpConfig.queues.createTask;
 async function publish(data) {
     const connection = await amqp.connect(CONN_URL);
 
-    const chanel = await connection.createChannel();
-    await chanel.assertQueue(queueName, {durable: false});
+    const channel = await connection.createChannel();
+    await channel.assertQueue(queueName, {durable: false});
 
     const json = JSON.stringify(data);
 
-    const sent = await chanel.sendToQueue(queueName, Buffer.from(json)/*, {persistent: true}*/); // se persiste si durable es true
+    const sent = await channel.sendToQueue(queueName, Buffer.from(json), {persistent: false});
 }
 
 module.exports = {
