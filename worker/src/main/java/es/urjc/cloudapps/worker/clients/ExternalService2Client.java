@@ -27,7 +27,7 @@ public class ExternalService2Client {
 
         TranslatedWord response = restTemplate.getForObject(url, TranslatedWord.class);
 
-        return CompletableFuture.completedFuture(response.getEnglish());
+        return CompletableFuture.completedFuture(response.getTranslation());
     }
 
 }

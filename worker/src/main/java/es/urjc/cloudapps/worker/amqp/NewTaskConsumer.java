@@ -49,7 +49,7 @@ public class NewTaskConsumer {
     }
 
     private void advanceProcess(Long id, int progress, boolean completed, String result) {
-        TaskProgressResponse response = new TaskProgressResponse(id, progress, completed, null);
+        TaskProgressResponse response = new TaskProgressResponse(id, progress, completed, result);
         producer.publishTaskProgress(response);
     }
 

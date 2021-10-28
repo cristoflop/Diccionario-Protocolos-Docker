@@ -2,14 +2,14 @@ package es.urjc.cloudapps.worker.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.io.Serializable;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
-public class TranslatedWord implements Serializable {
+@NoArgsConstructor
+public class TranslatedWord {
 
-    private String spanish;
-    private String english;
+    private String id;
+    private String translation;
 
 }
