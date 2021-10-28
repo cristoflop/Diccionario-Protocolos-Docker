@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node src/server",
+    "dev": "nodemon src/server"
+  },
+  "author": "cristofer-juan",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.8.0",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.6",
+    "cookie-parser": "^1.4.5",
+    "debug": "^3.2.7",
+    "express": "^4.17.1",
+    "express-ws": "^5.0.2",
+    "mysql2": "^2.3.2",
+    "nodemon": "^2.0.14",
+    "path": "^0.12.7",
+    "sequelize": "^6.8.0"
+  }
+}
