@@ -1,16 +1,35 @@
 "use strict"
 
+const socket = io();
+
+socket.on("connection", () => {
+    console.log("Nuevo cliente conectado! =]");
+    rechargeTasks();
+});
+
+socket.on("updateTasks", () => {
+    rechargeTasks();
+});
+
+socket.on("enableBtn", () => {
+    document.querySelector("#add-btn").disabled = false;
+});
+
+socket.on("disableBtn", () => {
+    document.querySelector("#add-btn").disabled = true;
+});
+
 /***********************************************************************************************************************************************/
 
 function addTask() {
-    const text = document.getElementById("forWord").value.trim();
+    const text = document.querySelector("#forWord").value.trim();
     if (text === "") {
         alert("No has introducido ninguna palabra");
     } else {
         save("/api/tasks", {text: text})
             .then(response => {
                 if (response.status === 201) {
-                    // document.getElementById("add-btn").disabled = true;
+                    socket.emit("disableBtn");
                     rechargeTasks();
                 } else {
                     alert("Error al crear la tarea");
@@ -24,12 +43,12 @@ function removeTask(buttonClicked) {
     if (taskId === undefined || taskId === "") {
         alert("Error en el id");
     } else {
-        read(`/api/tasks/${taskId}`, true)
+        remove(`/api/tasks/${taskId}`)
             .then(response => {
                 if (response.status === 204) {
                     rechargeTasks();
                 } else {
-                    alert(response.data.message);
+                    alert("No se puede borrar la tarea");
                 }
             });
     }
@@ -40,7 +59,7 @@ function removeTask(buttonClicked) {
 function rechargeTasks() {
     read("/api/tasks")
         .then(response => {
-            const taskList = document.getElementById("task-list");
+            const taskList = document.querySelector("#task-list");
             taskList.innerHTML = response.data.map(task => {
                 return renderLiFromTask(task);
             }).join("\n");
@@ -49,7 +68,6 @@ function rechargeTasks() {
 
 function renderLiFromTask(task) {
     const result = task.completed ? task.result : "EN PROCESO";
-    // const completed = eoloPlant.completed ? `<strong>COMPLETADO</strong>` : "";
     const deleteButton =
         `<button onClick="removeTask(this)" class="btn btn-raised btn-danger" value="${task.id}">Eliminar</button>`;
     return `<li class="mi-li mi-border shadow p-2 mb-2 bg-white rounded">
@@ -60,12 +78,11 @@ function renderLiFromTask(task) {
 
 /***********************************************************************************************************************************************/
 
-async function read(url, isDelete) {
+async function read(url) {
     const headers = new Headers();
     headers.append("Content-type", "application/json");
     const response = await fetch(url, {
         "headers": headers,
-        "method": isDelete !== undefined ? "DELETE" : "GET"
     });
     const result = await response.json();
     return {
@@ -83,25 +100,19 @@ async function save(url, data) {
         "body": JSON.stringify(data)
     });
     return {
-        status: response.status
+        status: response.status,
+        data: response.json()
     }
 }
 
-async function remove(url, data) {
+async function remove(url) {
     const headers = new Headers();
     headers.append("Content-type", "application/json");
     const response = await fetch(url, {
         "headers": headers,
         "method": "DELETE",
-        "body": JSON.stringify(data)
     });
     return {
         status: response.status
     }
-}
-
-/***********************************************************************************************************************************************/
-
-window.onload = function () {
-    rechargeTasks();
 }

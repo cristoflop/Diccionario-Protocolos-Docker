@@ -17,12 +17,26 @@ app.use(cookieParser());
 
 app.use("/api", taskRouter);
 
-const consumer = require("./amqp/taskProgressConsumer.js");
-consumer.consume();
-
-app.listen(3000, err => {
+const server = app.listen(3000, err => {
     if (err)
         console.error(`No se ha podido iniciar el servidor: ${err.message}`);
     else
         console.log(`Servidor arrancado en el puerto 3000`);
+});
+
+const io = require("socket.io")(server);
+
+const consumer = require("./amqp/taskProgressConsumer.js");
+consumer.consume(io);
+
+app.set("io", io);
+
+io.on("connection", socket => {
+
+    socket.emit("connection");
+
+    socket.on("disableBtn", () => {
+        socket.emit("disableBtn");
+    });
+
 });
